@@ -1,0 +1,45 @@
+.playercard {
+  position: relative;
+  padding: 2em;
+  background: #3b9bb9;
+  display: flex;
+  border-radius: 5px;
+  flex-direction: column;
+}
+
+.player_moves_card {
+  position: relative;
+  padding: 1em;
+  background-color: rgba(255, 255, 255, 0.4);
+  flex: 1;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.heading_playercard {
+  text-align: center;
+  padding: 0 0 0.7em 0;
+  color: white;
+}
+
+.moves_item {
+  background: #f7f7f7;
+  margin-bottom: 1em;
+  padding: 0.7em;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1.3rem;
+}
+
+.winCard {
+  position: absolute;
+  inset: 0;
+  text-align: center;
+  display: grid;
+  padding: 1em;
+  background: rgba(5, 45, 78, 0.8);
+  place-content: center;
+  color: white;
+  font-size: 1.7rem;
+  word-wrap: break-word;
+}
