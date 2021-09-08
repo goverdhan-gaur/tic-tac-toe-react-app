@@ -1,8 +1,11 @@
 .gameview {
   position: absolute;
-  inset: 0;
+  /* inset: 0; */
+  left: 0;
+  right: 0;
+  min-height: 100vh;
   margin: auto;
-  padding: 0 4em;
+  padding: 2em 4em 4em 4em;
   background-color: #f7f7f7;
   z-index: -1;
   display: grid;
@@ -16,13 +19,6 @@
 
 @media (max-width: 1200px) {
   .gameview {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    padding: 0 4em;
-    background-color: #f7f7f7;
-    z-index: -1;
-    display: grid;
     grid-column-gap: 2em;
     grid-row-gap: 2em;
     grid-template-rows: 0.2fr minmax(600px, 0.2fr) 1fr 0.2fr;
@@ -37,16 +33,23 @@
 
 @media (max-width: 768px) {
   .gameview {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    padding: 0 4em;
-    background-color: #f7f7f7;
-    z-index: -1;
-    display: grid;
     grid-column-gap: 2em;
     grid-row-gap: 2em;
     grid-template-rows: 0.2fr minmax(600px, 0.2fr) 1fr 0.2fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "heading heading"
+      "board board"
+      "one one"
+      "two two";
+    /* padding-bottom: 75%; */
+  }
+}
+@media (max-width: 600px) {
+  .gameview {
+    grid-column-gap: 2em;
+    grid-row-gap: 2em;
+    grid-template-rows: 0.2fr minmax(400px, 0.2fr) 1fr 0.2fr;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "heading heading"

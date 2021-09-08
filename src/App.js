@@ -2,12 +2,14 @@ import { Fragment, useState, useEffect, useRef } from 'react'
 import './App.css'
 import GameBoard from './components/gameBoard'
 import GameView from './components/gameView'
+import Modal from './components/modal'
 import PlayerCard from './components/playerCard'
 
 function App() {
   const [player, setPlayer] = useState(1)
   const [moveCount, setMoveCount] = useState(0)
   const [whoWon, setWhoWon] = useState(0)
+  const [isDrawn, setIsDrawn] = useState(false)
   const winningPairs = [
     [0, 1, 2],
     [3, 4, 5],
@@ -30,45 +32,62 @@ function App() {
   let playerOneArray = useRef([])
   let playerTwoArray = useRef([])
 
+  const resetGame = () => {
+    setGameSpots([
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+    ])
+    setPlayer(1)
+    setMoveCount(0)
+    setWhoWon(0)
+    setIsDrawn(false)
+    playerOneMoves.current = []
+    playerTwoMoves.current = []
+    playerOneArray.current = []
+    playerTwoArray.current = []
+  }
   const checkWinner = (winningPairs, currentAcquriedSpots) => {
     let count = 0
-    winningPairs.map((pair) => {
+    winningPairs.forEach((pair) => {
+      count = 0
       pair.forEach((spot) => {
         currentAcquriedSpots.current.includes(spot) && count++
       })
-
       if (count === 3) {
         setWhoWon(player)
-        console.log(whoWon)
-        setMoveCount(9)
+        console.log('Won')
       } else {
         playerToggle()
       }
-      count = 0
     })
+    whoWon !== 0 && setMoveCount(9)
+    if (moveCount === 8 && whoWon === 0) {
+      setIsDrawn(true)
+    }
   }
 
   const handleChange = (row, column, id) => {
     let tempArr = [...gameSpots]
     if (tempArr[row][column] === '') {
-      if (player === 1) {
-        tempArr[row][column] = 'o'
-        playerOneArray.current.push(+id)
-        playerOneMoves.current.push(`Row: ${row + 1}, Column: ${column + 1}`)
-        checkWinner(winningPairs, playerOneArray)
-        setGameSpots(tempArr)
-      } else {
-        tempArr[row][column] = 'x'
-        playerTwoArray.current.push(+id)
-        playerTwoMoves.current.push(`Row: ${row + 1}, Column: ${column + 1}`)
-        checkWinner(winningPairs, playerTwoArray)
-        setGameSpots(tempArr)
+      if (moveCount < 9) {
+        if (player === 1) {
+          tempArr[row][column] = 'o'
+          playerOneArray.current.push(+id)
+          playerOneMoves.current.push(`Row: ${row + 1}, Column: ${column + 1}`)
+          checkWinner(winningPairs, playerOneArray)
+          setGameSpots(tempArr)
+          setMoveCount(moveCount + 1)
+        } else {
+          tempArr[row][column] = 'x'
+          playerTwoArray.current.push(+id)
+          playerTwoMoves.current.push(`Row: ${row + 1}, Column: ${column + 1}`)
+          checkWinner(winningPairs, playerTwoArray)
+          setGameSpots(tempArr)
+          setMoveCount(moveCount + 1)
+        }
       }
     }
-
-    // console.log(gameSpots)
-    // console.log(playerOneArray)
-    // console.log(playerTwoArray)
   }
 
   const playerToggle = () => {
@@ -76,9 +95,7 @@ function App() {
   }
 
   const clickHandler = (e) => {
-    // console.log(e.target.id, typeof e.target.id)
-    setMoveCount(moveCount + 1)
-    if (moveCount < 9) {
+    if (whoWon === 0) {
       switch (e.target.id) {
         default:
           break
@@ -123,6 +140,7 @@ function App() {
           isWon={whoWon}
           playerId={1}
           className="playercard_one"
+          refresh={resetGame}
         />
         <GameBoard gameSpots={gameSpots} onSpotClick={clickHandler} />
         <PlayerCard
@@ -131,8 +149,10 @@ function App() {
           isWon={whoWon}
           playerId={2}
           className="playercard_two"
+          refresh={resetGame}
         />
       </GameView>
+      <Modal whoWon={whoWon} refresh={resetGame} isDrawn={isDrawn} />
     </Fragment>
   )
 }

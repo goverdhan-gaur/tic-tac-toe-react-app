@@ -13,3 +13,21 @@
 .playercard_two {
   grid-area: two;
 }
+.actions {
+  display: grid;
+  place-content: center;
+}
+
+.actions button {
+  padding: 0.35em 1em;
+  font-weight: 800;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-size: 1.3rem;
+}
+.actions button:hover {
+  background: rgba(207, 194, 14, 0.8);
+  color: white !important;
+  cursor: pointer;
+}

@@ -1,6 +1,8 @@
 import styles from './playerCard.module.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faRedoAlt } from '@fortawesome/free-solid-svg-icons'
 function PlayerCard(props) {
-  console.log(`${props.player}: ${props.isWon} = ${props.playerId}`)
+  // console.log(`${props.player}: ${props.isWon} = ${props.playerId}`)
   return (
     <>
       <div className={styles.playercard + ' ' + props.className}>
@@ -13,7 +15,12 @@ function PlayerCard(props) {
           ))}
           {props.isWon === props.playerId && (
             <div className={styles.winCard}>
-              <h1>You won</h1>{' '}
+              <h1>You won</h1>
+              <div className="actions">
+                <button onClick={props.refresh}>
+                  <FontAwesomeIcon icon={faRedoAlt} />
+                </button>
+              </div>
             </div>
           )}
         </div>
