@@ -40,22 +40,24 @@
     grid-template-areas:
       "heading heading"
       "board board"
-      "one one"
-      "two two";
+      "one two";
+
     /* padding-bottom: 75%; */
+  }
+  :root {
+    font-size: 0.7rem;
   }
 }
 @media (max-width: 600px) {
   .gameview {
     grid-column-gap: 2em;
     grid-row-gap: 2em;
-    grid-template-rows: 0.2fr minmax(400px, 0.2fr) 1fr 0.2fr;
+    grid-template-rows: 0.2fr minmax(400px, 0.2fr) auto;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
       "heading heading"
       "board board"
-      "one one"
-      "two two";
+      "one two";
     /* padding-bottom: 75%; */
   }
 }

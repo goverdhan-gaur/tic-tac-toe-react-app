@@ -43,3 +43,18 @@
   font-size: 1.7rem;
   word-wrap: break-word;
 }
+
+@media (max-width: 768px) {
+  .playercard {
+    padding: 1em;
+  }
+}
+@media (max-width: 600px) {
+  .playercard {
+    padding: 1em;
+  }
+  .moves_item {
+    padding: 0.5em;
+    font-size: 1rem;
+  }
+}
